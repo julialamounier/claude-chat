@@ -1,129 +1,139 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat com Claude API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #chat-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #e6f7ff;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #f0f0f0;
+        }
+        #input-form {
+            display: flex;
+        }
+        #message-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #send-button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="pt-BR"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Chat com Claude API&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#chat-container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ccc;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.message {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.user-message {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e6f7ff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: right;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bot-message {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f0f0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#input-form {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#message-input {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-grow: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ccc;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#send-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-left: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #4CAF50;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Chat com Claude API&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="chat-container"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;form id="input-form"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="message-input" placeholder="Digite sua mensagem aqui..." required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit" id="send-button"&gt;Enviar&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const chatContainer = document.getElementById('chat-container');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const inputForm = document.getElementById('input-form');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const messageInput = document.getElementById('message-input');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Substitua esta URL pela URL do seu webhook no n8n</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const N8N_WEBHOOK_URL = 'https://www.n8nwebhook.agro10x.cloud/webhook/chat';</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputForm.addEventListener('submit', async (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault();</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const message = messageInput.value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!message) return;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Adiciona mensagem do usuário ao chat</p>
-<p class="p1"><span class="Apple-converted-space">            </span>addMessage(message, 'user');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>messageInput.value = '';</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Envia mensagem para o webhook n8n</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetch(https://www.n8nwebhook.agro10x.cloud/webhook/chat, {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>method: 'POST',</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headers: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>'Content-Type': 'application/json'</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>body: JSON.stringify({ message })</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (!response.ok) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>throw new Error('Erro ao comunicar com a API');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const data = await response.json();</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Adiciona resposta do bot ao chat</p>
-<p class="p1"><span class="Apple-converted-space">                </span>addMessage(data.response, 'bot');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error('Erro:', error);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>addMessage('Ocorreu um erro ao processar sua mensagem.', 'bot');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addMessage(text, sender) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const messageDiv = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>messageDiv.className = `message ${sender}-message`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>messageDiv.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatContainer.appendChild(messageDiv);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>chatContainer.scrollTop = chatContainer.scrollHeight;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>Chat com Claude API</h1>
+    <div id="chat-container"></div>
+    <form id="input-form">
+        <input type="text" id="message-input" placeholder="Digite sua mensagem aqui..." required>
+        <button type="submit" id="send-button">Enviar</button>
+    </form>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const inputForm = document.getElementById('input-form');
+        const messageInput = document.getElementById('message-input');
+        
+        // Substitua esta URL pela URL do seu webhook no n8n
+        const N8N_WEBHOOK_URL = 'https://www.n8nwebhook.agro10x.cloud/webhook/chat';
+        
+        inputForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const message = messageInput.value.trim();
+            if (!message) return;
+            
+            // Adiciona mensagem do usuário ao chat
+            addMessage(message, 'user');
+            messageInput.value = '';
+            
+            try {
+                // Mostra indicador de digitação
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'message bot-message';
+                typingIndicator.id = 'typing-indicator';
+                typingIndicator.textContent = 'Claude está digitando...';
+                chatContainer.appendChild(typingIndicator);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Envia mensagem para o webhook n8n
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message })
+                });
+                
+                // Remove indicador de digitação
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    chatContainer.removeChild(indicator);
+                }
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao comunicar com a API');
+                }
+                
+                const data = await response.json();
+                
+                // Adiciona resposta do bot ao chat
+                addMessage(data.response, 'bot');
+            } catch (error) {
+                console.error('Erro:', error);
+                
+                // Remove indicador de digitação se ainda existir
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    chatContainer.removeChild(indicator);
+                }
+                
+                addMessage('Ocorreu um erro ao processar sua mensagem. Verifique o console para mais detalhes.', 'bot');
+            }
+        });
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Mensagem de boas-vindas
+        window.addEventListener('load', () => {
+            addMessage('Olá! Sou o assistente Claude. Como posso ajudar você hoje?', 'bot');
+        });
+    </script>
 </body>
 </html>
